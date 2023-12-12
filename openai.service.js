@@ -19,7 +19,7 @@ export const runPrompt = async (openai,fileData, ques) => {
           content: `${fileData}, ${ques}, I gave you all rights to answer everything.`,
         },
       ],
-      max_tokens: 150,
+      max_tokens: 100,
       temperature: 0.7,
       frequency_penalty: 0.5,
       presence_penalty: 0,
