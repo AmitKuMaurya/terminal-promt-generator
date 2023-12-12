@@ -1,34 +1,25 @@
-import {OpenAI}  from "openai";
-import fs from "fs";
-import chalk from "chalk";
 import dotenv from "dotenv";
+import { createPromptModule } from "inquirer";
+import { runPrompt, getOpenAiInstance } from "./openai.service.js";
+import { readFileContent } from "./file.service.js";
+import { FILE_READING_CONTENT } from "./utils/constants.js";
 dotenv.config();
 
-const openai = new OpenAI({
-    apiKey : process.env.API_KEY
-});
+const prompt = createPromptModule();
 
-const fileData = fs.readFileSync(process.argv[3],{encoding : "utf-8"});
+prompt(FILE_READING_CONTENT)
+  .then(async (answer) => {
+    console.log('answer: ', answer);
+    try {
+      const {fileName, question} = answer;
 
-
-const runPrompt = async () => {
-
-	const response = await openai.chat.completions.create({
-        model : "gpt-3.5-turbo",
-        messages : [{ role: "assistant", content: `${fileData}, Explain what this code is doing ??, you have all rights to answer everything.` }],
-        max_tokens : 150,
-        temperature : 0.7,
-        frequency_penalty : 0.5,
-        presence_penalty : 0
-        //stop : "."
-	});
+      const fileData = await readFileContent(fileName);
     
-	const parsableJSONresponse = response.choices[0].message.content;
-    
-    console.log(chalk.rgb(123, 45, 67).underline(parsableJSONresponse));
-	
-};
-
-if(process.argv[2] === "run") {
-    runPrompt();
-}
+      const openai =  getOpenAiInstance();
+  
+      await runPrompt(openai,fileData, question);
+    } catch (error) {
+      console.error({ err: error });
+    }
+  })
+  .catch((error) => console.error({ err: error }));
