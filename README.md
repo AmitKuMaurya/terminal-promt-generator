@@ -26,11 +26,11 @@ cd terminal-promt-generator
   * copy from it create a .env file and paste it there.
 
 ### Now, follow these commands to start the application.
-| Command           | Example       | Description                                                             |
-| :--------         | :-------      | :--------------------------------------                                 |
-| npm run dev       | node index.js | **Required**. to start the server.                                      |
-| ./random.py       | fileName      | **Required**. to retrieve the data to fetch.                            |
-| give prompt       | question      | **Required**. write, What you wanted to know about the content of the file |
+|  Steps | Command           | Example       | Description                                                             |
+| :------| :--------         | :-------      | :--------------------------------------                                 |
+|    1   | npm run dev       | node index.js | **Required**. to start the server.                                      |
+|    2   | ./random.py       | fileName      | **Required**. to retrieve the data to fetch.                            |
+|    3   | give prompt       | question      | **Required**. write, What you wanted to know about the content of the file |
 
 * After, that you gonna get an explanation in the terminal.
 
